@@ -1,8 +1,16 @@
 <template>
-  <div id="nav">
+<!-- <v-toolbar :elevation="8" title="Application"></v-toolbar> -->
+<v-toolbar id="nav" small color="indigo" dark>
+    <v-toolbar-side-icon></v-toolbar-side-icon>
+    <v-toolbar-title>Web Shop</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-btn icon>
+      <v-icon>search</v-icon>
+    </v-btn>
+    <router-link to="/">Cart</router-link> |
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
-  </div>
+  </v-toolbar>
   <router-view />
 </template>
 

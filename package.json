@@ -12,10 +12,16 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.24.8",
+    "@jamescoyle/svg-icon": "^0.1.1",
+    "@jamescoyle/vue-icon": "^0.1.2",
+    "@mdi/js": "^7.4.47",
+    "axios": "^1.7.2",
     "core-js": "^3.37.1",
+    "install": "^0.13.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.31",
-    "vue-router": "^4.4.0"
+    "vue-router": "^4.4.0",
+    "vuetify": "^3.6.13"
   },
   "devDependencies": {
     "@babel/core": "^7.24.8",
