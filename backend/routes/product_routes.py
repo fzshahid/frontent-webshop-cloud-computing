@@ -18,6 +18,14 @@ def create_product():
 def get_products():
     products = Product.query.all()
     return jsonify([{'id': p.id, 'name': p.name, 'price': p.price, 'stock': p.stock} for p in products])
+    
+@bp.route('/<int:id>', methods=['GET'])
+def get_product(id):
+    product = Product.query.get(id)
+    if product is None:
+        return jsonify({'message': 'Product not found'}), 404
+    return jsonify({'id': product.id, 'name': product.name, 'price': product.price, 'stock': product.stock})
+
 
 @bp.route('/<int:id>', methods=['PUT'])
 def update_product(id):
