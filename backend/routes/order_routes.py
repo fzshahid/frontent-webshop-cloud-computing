@@ -19,12 +19,12 @@ def create_order():
         inventory = Inventory.query.get(product_id)
         if not inventory or inventory.stock < quantity:
             return jsonify({'error': f'Not enough stock for product: {product_id}'}), 400
-        
+
         inventory.stock -= quantity
         if inventory.stock < 10:
             send_email(
                 f'Stock Alert for product: {product_id}',
-                ['kspooja5699@gmail.com'],
+                ['p08228412@gmail.com'],
                 f'The stock for product {product_id} is below 10. Current stock: {inventory.stock}'
             )
 
@@ -53,7 +53,7 @@ def update_order(order_id):
     order = Order.query.get(order_id)
     if not order:
         return jsonify({'error': 'Order not found'}), 404
-    
+
     data = request.json
     order.status = data.get('status', order.status)
     db.session.commit()
