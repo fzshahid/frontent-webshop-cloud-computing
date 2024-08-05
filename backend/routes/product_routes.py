@@ -1,39 +1,76 @@
 from flask import Blueprint, request, jsonify
-from models import Order
 from extensions import db
-from services.email_service import send_email
-from services.payment_service import process_payment
+from models import Product, Inventory
 
-bp = Blueprint('payment_routes', __name__, url_prefix='/payments')
+bp = Blueprint('product_routes', __name__, url_prefix='/products')
 
-@bp.route('/process', methods=['POST'])
-def process_payment_route():
-    data = request.json
-    order_id = data.get('order_id')
-    amount = data.get('amount')  # Amount in cents or the smallest currency unit
-    payment_method = data.get('payment_method')  # 'paypal'
+@bp.route('/', methods=['GET'])
+def get_products():
+  products = Product.query.all()
+  return jsonify([product.to_dict() for product in products]), 200
 
-    if not order_id or not amount or not payment_method:
-        return jsonify({'error': 'Missing required parameters'}), 400
+@bp.route('/<int:product_id>', methods=['GET'])
+def get_product(product_id):
+  product = Product.query.get(product_id)
+  if product:
+    return jsonify(product.to_dict()), 200
+  return jsonify({'error': 'Product not found'}), 404
 
-    order = Order.query.get(order_id)
-    if not order:
-        return jsonify({'error': 'Order not found'}), 404
+@bp.route('/', methods=['POST'])
+def create_product():
+  product_data = request.json
+  if not product_data or 'name' not in product_data or 'price' not in product_data or 'description' not in product_data or 'product_image_url' not in product_data:
+    return jsonify({'error': 'Invalid product data'}), 400
 
-    # Process payment using mocked PayPal
-    result = process_payment(amount, payment_method=payment_method, description=f'Payment for order {order_id}')
+  product = Product(
+    name=product_data['name'],
+    description=product_data['description'],
+    price=product_data['price'],
+    product_image_url=product_data['product_image_url'],
+    category_id=product_data.get('category_id', 1)
+  )
+  db.session.add(product)
+  db.session.commit()
 
-    if result['status'] == 'success':
-        order.status = 'Paid'
-        db.session.commit()
+  inventory = Inventory(product_id=product.id, stock=product_data.get('stock', 0))
+  db.session.add(inventory)
+  db.session.commit()
 
-        # Send confirmation email
-        email_sent = send_email(
-            'Payment Confirmation',
-            order.email,
-            f'Your payment for order {order_id} has been successfully processed.'
-        )
-        if not email_sent:
-            return jsonify({'error': 'Payment processed but failed to send email'}), 500
+  return jsonify(product.to_dict()), 201
 
-    return jsonify(result)
+@bp.route('/<int:product_id>', methods=['PUT'])
+def update_product(product_id):
+  product_data = request.json
+  product = Product.query.get(product_id)
+  if not product:
+    return jsonify({'error': 'Product not found'}), 404
+
+  product.name = product_data.get('name', product.name)
+  product.description = product_data.get('description', product.description)
+  product.price = product_data.get('price', product.price)
+  product.product_image_url = product_data.get('product_image_url', product.product_image_url)
+  product.category_id = product_data.get('category_id', product.category_id)
+
+  inventory = Inventory.query.get(product_id)
+  if inventory:
+    inventory.stock = product_data.get('stock', inventory.stock)
+  else:
+    inventory = Inventory(product_id=product.id, stock=product_data.get('stock', 0))
+    db.session.add(inventory)
+
+  db.session.commit()
+  return jsonify(product.to_dict()), 200
+
+@bp.route('/<int:product_id>', methods=['DELETE'])
+def delete_product(product_id):
+  product = Product.query.get(product_id)
+  if not product:
+    return jsonify({'error': 'Product not found'}), 404
+
+  inventory = Inventory.query.get(product_id)
+  if inventory:
+    db.session.delete(inventory)
+
+  db.session.delete(product)
+  db.session.commit()
+  return jsonify({'message': 'Product deleted successfully'}), 200
