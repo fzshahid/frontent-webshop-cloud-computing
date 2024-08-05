@@ -1,6 +1,6 @@
 from flask import Flask
-from extensions import db, mail
-from routes import product_routes, order_routes, inventory_routes, payment_routes
+from extensions import db, mail, login_manager
+from routes import product_routes, order_routes, inventory_routes, payment_routes, auth_routes
 from config import Config
 from flask_migrate import Migrate
 
