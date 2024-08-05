@@ -1,13 +1,11 @@
-# models.py
-
 from extensions import db
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-class User(db.Model, UserMixin):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True, nullable=False)
-    password_hash = db.Column(db.String(150), nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -18,14 +16,50 @@ class User(db.Model, UserMixin):
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    price = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=False)
+    price = db.Column(db.Float, nullable=False)
     product_image_url = db.Column(db.String(255), nullable=False)
-    stock = db.Column(db.Integer, default=0)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False, default=1)
+    inventory = db.relationship('Inventory', back_populates='product', uselist=False)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'price': self.price,
+            'product_image_url': self.product_image_url,
+            'category_id': self.category_id,
+            'stock': self.inventory.stock if self.inventory else 0
+        }
+
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=True)
 
 class Order(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False)
+    id = db.Column(db.String(36), primary_key=True)
+    email = db.Column(db.String(150), nullable=False)
     status = db.Column(db.String(50), default='Pending')
+    items = db.Column(db.JSON, nullable=False)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'email': self.email,
+            'status': self.status,
+            'items': self.items
+        }
+
+class Inventory(db.Model):
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), primary_key=True)
+    stock = db.Column(db.Integer, nullable=False)
+    product = db.relationship('Product', back_populates='inventory')
+
+    def to_dict(self):
+        return {
+            'product_id': self.product_id,
+            'stock': self.stock,
+            'product': self.product.to_dict() if self.product else None
+        }

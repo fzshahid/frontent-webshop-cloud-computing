@@ -1,10 +1,9 @@
-# routes/auth_routes.py
-
-from flask import Blueprint, request, jsonify, redirect, url_for
+from flask import Blueprint, request, jsonify
 from extensions import db
 from models import User
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from services.email_service import send_email
 
 bp = Blueprint('auth_routes', __name__, url_prefix='/auth')
 
@@ -30,6 +29,7 @@ def login():
     user = User.query.filter_by(email=email).first()
     if user and user.check_password(password):
         login_user(user)
+        send_email('Login Alert', user.email, 'You have successfully logged in.')
         return jsonify({'message': 'Logged in'}), 200
     return jsonify({'message': 'Invalid credentials'}), 400
 
