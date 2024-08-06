@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 class Product(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
+  id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   name = db.Column(db.String(100), nullable=False)
   description = db.Column(db.Text, nullable=False)
   price = db.Column(db.Float, nullable=False)
@@ -23,7 +23,7 @@ class Product(db.Model):
     }
 
 class Category(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
+  id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   name = db.Column(db.String(100), nullable=False)
   description = db.Column(db.Text, nullable=True)
 
@@ -35,7 +35,7 @@ class Category(db.Model):
     }
 
 class Order(db.Model):
-  id = db.Column(db.String(36), primary_key=True)
+  id = db.Column(db.String(36), primary_key=True, autoincrement=True)
   email = db.Column(db.String(150), nullable=False)
   status = db.Column(db.String(50), default='Pending')
   items = db.Column(db.JSON, nullable=False)
@@ -51,7 +51,7 @@ class Order(db.Model):
     }
 
 class Inventory(db.Model):
-  product_id = db.Column(db.Integer, db.ForeignKey('product.id'), primary_key=True)
+  product_id = db.Column(db.Integer, db.ForeignKey('product.id'), primary_key=True, autoincrement=True)
   stock = db.Column(db.Integer, nullable=False)
   product = db.relationship('Product', back_populates='inventory')
 
@@ -63,7 +63,7 @@ class Inventory(db.Model):
     }
 
 class User(UserMixin, db.Model):
-  id = db.Column(db.Integer, primary_key=True)
+  id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   email = db.Column(db.String(150), unique=True, nullable=False)
   password_hash = db.Column(db.String(128), nullable=False)
 
