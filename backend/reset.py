@@ -1,7 +1,7 @@
 # reset_db.py
 
 from app import app, db
-from models import User, Category, Product, Supplier, Inventory, Order
+from models import User, Category, Product, Inventory, Order
 
 # Push an application context
 with app.app_context():

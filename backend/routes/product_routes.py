@@ -89,3 +89,13 @@ def create_category():
   db.session.commit()
 
   return jsonify(category.to_dict()), 201
+
+@bp.route('/categories/<int:category_id>', methods=['DELETE'])
+def delete_category(category_id):
+  category = Category.query.get(category_id)
+  if not category:
+    return jsonify({'error': 'Category not found'}), 404
+
+  db.session.delete(category)
+  db.session.commit()
+  return jsonify({'message': 'Category deleted successfully'}), 200
