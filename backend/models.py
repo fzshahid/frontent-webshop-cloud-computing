@@ -35,7 +35,7 @@ class Category(db.Model):
     }
 
 class Order(db.Model):
-  id = db.Column(db.String(36), primary_key=True, autoincrement=True)
+  id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   email = db.Column(db.String(150), nullable=False)
   status = db.Column(db.String(50), default='Pending')
   items = db.Column(db.JSON, nullable=False)
