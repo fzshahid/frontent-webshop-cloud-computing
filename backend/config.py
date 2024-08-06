@@ -1,7 +1,7 @@
 import os
 
 class Config:
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///mydatabase.db'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://admin:CloudComputing2024@mydatabase.cvca4k4ky46o.us-east-1.rds.amazonaws.com/mydatabase'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.urandom(24)
     MAIL_SERVER = 'smtp.mailtrap.io'
