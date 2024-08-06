@@ -27,6 +27,13 @@ class Category(db.Model):
   name = db.Column(db.String(100), nullable=False)
   description = db.Column(db.Text, nullable=True)
 
+  def to_dict(self):
+    return {
+      'id': self.id,
+      'name': self.name,
+      'description': self.description
+    }
+
 class Order(db.Model):
   id = db.Column(db.String(36), primary_key=True)
   email = db.Column(db.String(150), nullable=False)

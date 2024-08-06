@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from extensions import db
-from models import Product, Inventory
+from models import Product, Inventory, Category
 
 bp = Blueprint('product_routes', __name__, url_prefix='/products')
 
@@ -74,3 +74,18 @@ def delete_product(product_id):
   db.session.delete(product)
   db.session.commit()
   return jsonify({'message': 'Product deleted successfully'}), 200
+
+@bp.route('/categories', methods=['POST'])
+def create_category():
+  category_data = request.json
+  if not category_data or 'name' not in category_data:
+    return jsonify({'error': 'Invalid category data'}), 400
+
+  category = Category(
+    name=category_data['name'],
+    description=category_data.get('description', '')
+  )
+  db.session.add(category)
+  db.session.commit()
+
+  return jsonify(category.to_dict()), 201
