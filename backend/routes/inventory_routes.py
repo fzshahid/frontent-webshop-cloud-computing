@@ -24,4 +24,15 @@ def inventory_to_dict(inventory):
         'product': inventory.product.to_dict()
     }
 
+@bp.route('/<int:product_id>', methods=['PUT'])
+def update_inventory(product_id):
+    inventory_data = request.json
+    inventory = Inventory.query.get(product_id)
+    if not inventory:
+        return jsonify({'error': 'Inventory item not found'}), 404
+
+    inventory.stock = inventory_data.get('stock', inventory.stock)
+    db.session.commit()
+    return jsonify(inventory.to_dict()), 200
+
 Inventory.to_dict = inventory_to_dict
