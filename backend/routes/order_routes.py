@@ -13,6 +13,7 @@ def create_order():
   if not order_data or 'items' not in order_data or 'email' not in order_data:
     return jsonify({'error': 'Invalid order data'}), 400
 
+  total_amount = 0
   for item in order_data['items']:
     product_id = item['product_id']
     quantity = item['quantity']
@@ -21,6 +22,7 @@ def create_order():
     if not inventory or inventory.stock < quantity:
       return jsonify({'error': f'Not enough stock for product: {product_id}'}), 400
 
+    total_amount += inventory.product.price * quantity
     inventory.stock -= quantity
     if inventory.stock < 10:
       send_email(
@@ -30,7 +32,7 @@ def create_order():
       )
 
   order_id = str(uuid.uuid4())
-  new_order = Order(id=order_id, email=order_data['email'], items=order_data['items'])
+  new_order = Order(id=order_id, email=order_data['email'], items=order_data['items'], amount=total_amount)
   db.session.add(new_order)
   db.session.commit()
 

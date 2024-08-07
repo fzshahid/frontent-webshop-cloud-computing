@@ -40,6 +40,15 @@ class Order(db.Model):
   status = db.Column(db.String(50), default='Pending')
   items = db.Column(db.JSON, nullable=False)
   payment_id = db.Column(db.String(100), nullable=True)
+  amount = db.Column(db.Float, nullable=True)
+
+  def calculate_amount(self):
+    total = 0
+    for item in self.items:
+      product = Product.query.get(item['product_id'])
+      if product:
+        total += product.price * item['quantity']
+    return total
 
   def to_dict(self):
     return {
@@ -47,7 +56,8 @@ class Order(db.Model):
       'email': self.email,
       'status': self.status,
       'items': self.items,
-      'payment_id': self.payment_id
+      'payment_id': self.payment_id,
+      'amount': self.calculate_amount()
     }
 
 class Inventory(db.Model):
