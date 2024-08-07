@@ -31,15 +31,14 @@ def create_order():
         f'The stock for product {product_id} is below 10. Current stock: {inventory.stock}'
       )
 
-  order_id = str(uuid.uuid4())
-  new_order = Order(id=order_id, email=order_data['email'], items=order_data['items'], amount=total_amount)
+  new_order = Order(email=order_data['email'], items=order_data['items'], amount=total_amount)
   db.session.add(new_order)
   db.session.commit()
 
   send_email(
     'Order Confirmation',
     [order_data['email']],
-    f'Your order (ID: {order_id}) has been received and is being processed.'
+    f'Your order (ID: {new_order.id}) has been received and is being processed.'
   )
 
   return jsonify({'message': 'Order created successfully', 'order': new_order.to_dict()}), 201
