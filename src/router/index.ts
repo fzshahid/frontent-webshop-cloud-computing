@@ -16,6 +16,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'About',
     component: () => import(/* webpackChunkName: "about" */ '../views/about/index.vue'),
   },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import(/* webpackChunkName: "login" */ '../views/login/index.vue'), // Ensure this matches the actual casing
+  },
 ]
 
 const router = createRouter({
