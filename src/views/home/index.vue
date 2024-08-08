@@ -53,7 +53,7 @@ export default defineComponent({
   methods: {
     getProducts() {
       // webService.get('http://54.158.39.27/products').then((response)=>{
-      webService.get('http://ec2-54-158-39-27.compute-1.amazonaws.com/products').then((response)=>{
+      webService.get('http://ec2-16-171-199-141.eu-north-1.compute.amazonaws.com/api/products').then((response)=>{
         this.cards = response.data;
       });
     }
