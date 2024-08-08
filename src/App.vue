@@ -12,7 +12,11 @@
             gradient="to top right, rgba(19,84,122,.8), rgba(128,208,199,.8)"
           ></v-img>
         </template>
-        <v-app-bar-title class="text-left">Webshop App</v-app-bar-title>
+        <v-app-bar-title class="text-left" @click="goToHome">
+          <v-btn  @click="goToCart">
+            Webshop App
+          </v-btn>
+          </v-app-bar-title>
         <v-spacer></v-spacer>
         <v-badge
           :content="cartItemCount"
@@ -52,6 +56,9 @@ export default {
     const goToCart = () => {
       router.push('/cart');
     };
+    const goToHome = () => {
+      router.push('/');
+    };
 
     onMounted(() => {
       loadCart();
@@ -60,6 +67,7 @@ export default {
     return {
       cartItemCount,
       goToCart,
+      goToHome
     };
   },
 };

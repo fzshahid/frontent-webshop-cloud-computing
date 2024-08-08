@@ -2,11 +2,11 @@
   <div class="home">
     <v-container>
       <v-row>
-        <v-col cols="6" xs="12" md="6">
+        <v-col sm="12" xs="12" md="6">
           <v-text-field v-model="searchQuery" label="Search" />
         </v-col>
         <v-spacer></v-spacer>
-        <v-col cols="4" xs="12" md="4" class="text-right">
+        <v-col sm="12" xs="12" md="6" class="text-right">
           <v-btn color="primary" :prepend-icon="sortOrder == 'asc' ? 'mdi-sort-ascending' : 'mdi-sort-descending'" @click="toggleSortOrder">Sort By Price</v-btn>
         </v-col>
       </v-row>
@@ -14,15 +14,33 @@
         <v-col cols="12">
           <v-row>
             <v-col v-for="product in filteredProducts" :key="product.id" xs="12" md="4">
-              <v-card>
-                <!-- <v-img :src="product.product_image_url" class="white--text align-end" height="300px" cover> -->
-                <v-img :src="product.product_image_url" class="w-100" height="200px" cover=""></v-img>
-                <v-card-title>{{ product.name }}</v-card-title>
-                <v-card-subtitle>${{ product.price }}</v-card-subtitle>
-                <v-card-actions class="w-100">
-                  <v-btn depressed small color="primary" @click="addToCart(product)">Add to cart</v-btn>
-                  <v-spacer></v-spacer>
-                  <v-btn depressed small color="primary" @click="viewDetails(product)">View details</v-btn>
+              <v-card
+                class="mx-auto"
+                max-width="400"
+              >
+                <!-- :src="product.product_image_url" -->
+                <v-img
+                  class="align-end text-white"
+                  height="200"
+                  src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                  cover
+                >
+                  <v-card-title class="text-left">{{product.name}}</v-card-title>
+                </v-img>
+
+                <v-card-subtitle class="pt-4 text-left">
+                  <span class="font-weight-medium">Price: ${{ product.price }}</span>
+                </v-card-subtitle>
+
+                <v-card-text class="text-left">
+                  <div>{{ product.description }}</div>
+
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-btn color="primary" text="Add to cart" @click="addToCart(product)"></v-btn>
+
+                  <v-btn color="orange" text="Details" @click="viewDetails(product)"></v-btn>
                 </v-card-actions>
               </v-card>
             </v-col>
