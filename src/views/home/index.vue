@@ -41,9 +41,9 @@ export default defineComponent({
       cards: [
       { id: 1,subtitle: 'qwe', description: 'qwe', title: 'Pre-fab homes', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 12, url: 'https://www.yahoo.com' },
       { id: 2,subtitle: 'qwe', description: 'qwe', title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6, url: 'https://www.google.com' },
-      { id: 3,subtitle: 'qwe', description: 'qwe', title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6, url: 'https://www.iwebarea.com' },
-      { id: 4,subtitle: 'qwe', description: 'qwe', title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6, url: 'https://www.goechkey.com' },     
-      { id: 5,subtitle: 'qwe', description: 'qwe', title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6, url: 'https://www.otg.com' }
+      { id: 3,subtitle: 'qwe', description: 'qwe', title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 6, url: 'https://www.iwebarea.com' },
+      { id: 4,subtitle: 'qwe', description: 'qwe', title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 6, url: 'https://www.goechkey.com' },     
+      { id: 5,subtitle: 'qwe', description: 'qwe', title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 6, url: 'https://www.otg.com' }
     ]
     };
   },
@@ -52,7 +52,8 @@ export default defineComponent({
   },
   methods: {
     getProducts() {
-      webService.get('https://postman-echo.com/get?test=products').then((response)=>{
+      // webService.get('http://54.158.39.27/products').then((response)=>{
+      webService.get('http://ec2-54-158-39-27.compute-1.amazonaws.com/products').then((response)=>{
         this.cards = response.data;
       });
     }

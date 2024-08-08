@@ -43,18 +43,13 @@
         password: '',
       };
     },
-    setup() {
-      const router = useRouter();
-      const login = () => {
-        // Simulate a login action, replace with actual login logic
+    methods: {
+      login() {
         console.log('Email:', this.email);
-        console.log('Password:', this.password);
-  
-        // Redirect to homepage after successful login
-        router.push('/');
-      };
-      return { login };
-    },
+        console.log('Password:', this.password);  
+        useRouter().push('/');
+      }
+    }
   });
   </script>
   

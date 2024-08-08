@@ -19,7 +19,7 @@ import axios from 'axios';
 
 
 //axio create...
-var currentUrl = "https://postman-echo.com/" //'http://'+window.location.host;
+// var currentUrl = "http://ec2-54-158-39-27.compute-1.amazonaws.com/";
 
 //console.log('Token is: ', token);
 let webService = axios.create({
@@ -30,7 +30,7 @@ let webService = axios.create({
       },
     // baseURL: 'http://127.0.0.1:8000/api',
     //baseURL: 'http://phplaravel-421708-1325291.cloudwaysapps.com/api',
-    baseURL: currentUrl + '/api'
+    // baseURL: currentUrl + '/api'
     //headers: headers,
 });
 
