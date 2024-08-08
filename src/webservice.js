@@ -19,19 +19,16 @@ import axios from 'axios';
 
 
 //axio create...
-// var currentUrl = "http://ec2-54-158-39-27.compute-1.amazonaws.com/";
+var currentUrl = "http://ec2-16-171-199-141.eu-north-1.compute.amazonaws.com";
 
-//console.log('Token is: ', token);
 let webService = axios.create({
       headers: {
         "Cache-Control": "no-cache",
         "Content-Type": "application/x-www-form-urlencoded",
         "Access-Control-Allow-Origin": "*",
       },
-    // baseURL: 'http://127.0.0.1:8000/api',
-    //baseURL: 'http://phplaravel-421708-1325291.cloudwaysapps.com/api',
-    // baseURL: currentUrl + '/api'
-    //headers: headers,
+    baseURL: currentUrl + '/api',
+    withCredentials: true,  
 });
 
 export default webService;

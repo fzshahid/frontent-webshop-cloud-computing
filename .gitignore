@@ -24,3 +24,11 @@ yarn-error.log*
 *.diff
 *.patch
 *.bak
+
+venv
+backend/__pycache__
+backend/routes/__pycache__
+backend/routes/__pycache__
+backend/services/__pycache__
+backend/services/__pycache__
+
