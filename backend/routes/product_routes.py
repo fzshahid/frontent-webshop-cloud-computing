@@ -3,6 +3,9 @@ from extensions import db
 from models import Product, Inventory, Category
 
 bp = Blueprint('product_routes', __name__, url_prefix='/api/products')
+@bp.route('/', methods=['OPTIONS'])
+def handle_options():
+    return '', 200
 
 @bp.route('/', methods=['GET'])
 def get_products():
