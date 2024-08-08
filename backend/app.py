@@ -13,7 +13,7 @@ def create_app():
   init_app(app)
 
   # Configure CORS
-  CORS(app, resources={r"/api*": {"origins": "*"}},
+  CORS(app, resources={r"/*": {"origins": "*"}},
        supports_credentials=True,
        allow_headers=["Content-Type", "Authorization"],
        expose_headers=["Content-Type", "Authorization"],
