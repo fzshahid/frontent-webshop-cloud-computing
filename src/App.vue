@@ -1,63 +1,89 @@
 <template>
 <!-- <v-toolbar :elevation="8" title="Application"></v-toolbar> -->
-<v-card class="mx-auto" color="grey-lighten-3" max-width="448">
+<v-card class="mx-auto" color="grey-lighten-3">
     <v-layout>
       <v-app-bar
         scroll-behavior="elevate hide"
         color="teal-darken-4"
         image="https://picsum.photos/1920/1080?random"
       >
-        <template v-slot:image>
+        <template #image>
           <v-img
             gradient="to top right, rgba(19,84,122,.8), rgba(128,208,199,.8)"
           ></v-img>
         </template>
-
-        <template v-slot:prepend>
-          <v-app-bar-nav-icon></v-app-bar-nav-icon>
-        </template>
-
-        <v-app-bar-title>Title</v-app-bar-title>
-
+        <v-app-bar-title class="text-left">Webshop App</v-app-bar-title>
         <v-spacer></v-spacer>
-
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
-
-        <v-btn icon>
-          <v-icon>mdi-dots-vertical</v-icon>
-        </v-btn>
+        <v-badge
+          :content="cartItemCount"
+          color="red"
+          overlap
+          offset-x="12"
+          offset-y="12"
+        >
+          <v-btn icon @click="goToCart">
+            <v-icon>mdi-cart</v-icon>
+          </v-btn>
+        </v-badge>
       </v-app-bar>
+      <v-main>
+        <router-view />
+      </v-main>
     </v-layout>
   </v-card>
-  <router-view />
 
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
-#nav {
-  padding: 30px;
+export default {
+  name: 'NavBar',
+  setup() {
+    const cartItemCount = ref(0);
+    const router = useRouter();
 
-  a {
-    font-weight: bold;
+    const loadCart = () => {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cartItemCount.value = cart.reduce((total, item) => total + item.quantity, 0);
+    };
+
+    const goToCart = () => {
+      router.push('/cart');
+    };
+
+    onMounted(() => {
+      loadCart();
+    });
+
+    return {
+      cartItemCount,
+      goToCart,
+    };
+  },
+};
+</script>
+  <style lang="scss">
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
     color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+  }
+  
+  #nav {
+    padding: 30px;
+  
+    a {
+      font-weight: bold;
+      color: #2c3e50;
+  
+      &.router-link-exact-active {
+        color: #42b983;
+      }
     }
   }
-}
-</style>
+  </style>
+  

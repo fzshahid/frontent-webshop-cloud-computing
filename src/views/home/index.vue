@@ -7,7 +7,7 @@
         </v-col>
         <v-spacer></v-spacer>
         <v-col cols="4" xs="12" md="4" class="text-right">
-          <v-btn @click="toggleSortOrder" color="primary" :prepend-icon="sortOrder == 'asc' ? 'mdi-sort-ascending' : 'mdi-sort-descending'">Sort By Price</v-btn>
+          <v-btn color="primary" :prepend-icon="sortOrder == 'asc' ? 'mdi-sort-ascending' : 'mdi-sort-descending'" @click="toggleSortOrder">Sort By Price</v-btn>
         </v-col>
       </v-row>
       <v-row>
