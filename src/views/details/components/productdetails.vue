@@ -45,13 +45,16 @@ export default defineComponent({
     const getProductDetails = () => {
       const productId = parseInt(route.params.id, 10)
       webService.get(`/products/${productId}`).then((response) => {
+      // webService.get(`/products/2`).then((response) => {
         // products.value = response.data
         // if (foundProduct) {
           product.value = response.data;
         // } else {
-          router.push('/') // Redirect to home if product not found
         // }
-      })
+      }).catch((error) => {
+        console.error(error)
+        router.push('/');
+      });
     }
     const fetchProduct = () => {
       // Dummy data to simulate fetching product details

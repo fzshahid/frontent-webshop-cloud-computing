@@ -25,7 +25,7 @@ yarn-error.log*
 *.patch
 *.bak
 
-venv
+backend/venv/
 backend/__pycache__
 backend/routes/__pycache__
 backend/routes/__pycache__

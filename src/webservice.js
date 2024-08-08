@@ -19,7 +19,7 @@ import axios from 'axios';
 
 
 //axio create...
-var currentUrl = "http://ec2-16-171-199-141.eu-north-1.compute.amazonaws.com";
+var currentUrl = "http://ec2-16-171-11-75.eu-north-1.compute.amazonaws.com/";
 
 let webService = axios.create({
       headers: {

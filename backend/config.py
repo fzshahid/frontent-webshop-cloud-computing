@@ -23,3 +23,8 @@ class Config:
     MAIL_PASSWORD = 'f2d3fa99cc42a3'
     MAIL_USE_TLS = True
     MAIL_USE_SSL = False
+    # S3 Configuration
+    S3_BUCKET = 'cocobuckets2024'
+    S3_KEY = 'AKIATCKAO5ZAU4JI4FUT'
+    S3_SECRET = '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'
+    S3_LOCATION = f'http://{S3_BUCKET}.s3.amazonaws.com/'

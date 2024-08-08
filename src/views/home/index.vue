@@ -2,18 +2,18 @@
   <div class="home">
     <v-container>
       <v-row>
-        <v-col cols="12" md="4">
+        <v-col cols="6" xs="12" md="6">
           <v-text-field v-model="searchQuery" label="Search" />
         </v-col>
         <v-spacer></v-spacer>
-        <v-col cols="12" md="4" class="text-right">
-          <v-btn color="primary" prepend-icon="mdi-open-in-new">Sort By Price</v-btn>
+        <v-col cols="4" xs="12" md="4" class="text-right">
+          <v-btn @click="toggleSortOrder" color="primary" :prepend-icon="sortOrder == 'asc' ? 'mdi-sort-ascending' : 'mdi-sort-descending'">Sort By Price</v-btn>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12">
           <v-row>
-            <v-col v-for="product in filteredProducts" :key="product.id" cols="12" md="4">
+            <v-col v-for="product in filteredProducts" :key="product.id" xs="12" md="4">
               <v-card>
                 <!-- <v-img :src="product.product_image_url" class="white--text align-end" height="300px" cover> -->
                 <v-img :src="product.product_image_url" class="w-100" height="200px" cover=""></v-img>
@@ -43,6 +43,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const searchQuery = ref('');
+    const sortOrder = ref('asc');
     const cart = ref([]);
 
     const products = ref([
@@ -96,7 +97,13 @@ export default defineComponent({
     const filteredProducts = computed(() =>
       products.value.filter((x) =>
         x.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-      )
+      ).sort((a, b) => {
+          if (sortOrder.value === 'asc') {
+            return a.price - b.price;
+          } else {
+            return b.price - a.price;
+          }
+        })
     );
 
     const addToCart = (product) => {
@@ -131,12 +138,18 @@ export default defineComponent({
       router.push(`/details/${product.id}`);
     };
 
+    const toggleSortOrder = () => {
+      sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc';
+    };
+
     onMounted(() => {
       loadCart();
       getProducts();
     });
 
     return {
+      toggleSortOrder,
+      sortOrder,
       searchQuery,
       products,
       filteredProducts,
