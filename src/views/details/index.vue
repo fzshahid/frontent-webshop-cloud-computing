@@ -1,16 +1,15 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="./images/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue3 Boilerplate" />
+    <ProductDetails msg="" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import HelloWorld from './components/hello-world.vue'
+import ProductDetails from './components/productdetails.vue'
 
 export default defineComponent({
-  name: 'HomePage',
-  components: { HelloWorld },
+  name: 'DetailsPage',
+  components: { ProductDetails },
 })
 </script>
