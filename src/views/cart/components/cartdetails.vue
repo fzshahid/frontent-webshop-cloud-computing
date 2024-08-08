@@ -24,13 +24,13 @@
 
 <script>
 import { defineComponent, ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import webService from "../../../webservice";
+import { useRouter } from 'vue-router'
+// import webService from "../../../webservice";
 
 export default defineComponent({
-  name: 'ProductDetails',
+  name: 'CartDetails',
   setup() {
-    const route = useRoute()
+    // const route = useRoute()
     const router = useRouter()
     const product = ref({
       category_id: 1,
