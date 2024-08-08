@@ -4,6 +4,9 @@ from config import Config
 from flask_migrate import Migrate
 from routes import product_routes, order_routes, payment_routes, inventory_routes, auth_routes
 from flask_cors import CORS
+from flask import Blueprint
+
+blueprint = Blueprint('blueprint', __name__)
 
 def create_app():
   app = Flask(__name__)
@@ -13,16 +16,20 @@ def create_app():
   init_app(app)
 
   # Configure CORS
-  CORS(app, resources={r"/*": {"origins": "http://0.0.0.0:8083"}},
-       supports_credentials=True,
-       allow_headers=["Content-Type", "Authorization"],
-       expose_headers=["Content-Type", "Authorization"],
-       methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
+  CORS(app)
+  app.config['CORS_HEADERS'] = 'Content-Type'
 
   migrate = Migrate(app, db)
 
   with app.app_context():
     db.create_all()
+
+  @blueprint.after_request 
+  def after_request(response):
+    header = response.headers
+    header['Access-Control-Allow-Origin'] = '*'
+    header['Access-Control-Allow-Headers']='Content-Type'
+    # Other headers can be added here if needed
 
   # Register blueprints
   app.register_blueprint(product_routes.bp)
