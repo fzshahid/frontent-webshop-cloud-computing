@@ -5,7 +5,7 @@ from services.payment_service import process_payment
 from services.email_service import send_email
 import uuid
 
-bp = Blueprint('order_routes', __name__, url_prefix='/orders')
+bp = Blueprint('order_routes', __name__, url_prefix='/api/orders')
 
 @bp.route('/', methods=['POST'])
 def create_order():

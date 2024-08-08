@@ -5,7 +5,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from services.email_service import send_email
 
-bp = Blueprint('auth_routes', __name__, url_prefix='/auth')
+bp = Blueprint('auth_routes', __name__, url_prefix='/api/auth')
 
 @bp.route('/register', methods=['POST'])
 def register():

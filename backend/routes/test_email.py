@@ -14,7 +14,7 @@ app.config.update(
 
 mail = Mail(app)
 
-@app.route('/send_test_email')
+@app.route('/api/send_test_email')
 def send_test_email():
     try:
         msg = Message('Test Email', sender='dummy@example.com', recipients=['pooja.prp99@gmail.com'])

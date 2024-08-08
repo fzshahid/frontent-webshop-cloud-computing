@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from extensions import db
 from models import Product, Inventory, Category
 
-bp = Blueprint('product_routes', __name__, url_prefix='/products')
+bp = Blueprint('product_routes', __name__, url_prefix='/api/products')
 
 @bp.route('/', methods=['GET'])
 def get_products():

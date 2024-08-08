@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from services.payment_service import process_payment
 from models import Order
 
-bp = Blueprint('payment_routes', __name__, url_prefix='/payments')
+bp = Blueprint('payment_routes', __name__, url_prefix='/api/payments')
 
 @bp.route('/process', methods=['POST'])
 def process_payment_route():
