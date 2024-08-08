@@ -17,8 +17,8 @@ class Config:
     MAIL_USE_SSL = False
 
     # S3 Configuration
-    S3_BUCKET = 'bucket_name'
-    S3_KEY = 'aws_access_key_id'
-    S3_SECRET = 'aws_key_secret'
+    S3_BUCKET = ''
+    S3_KEY = ''
+    S3_SECRET = ''
     S3_LOCATION = f'http://{S3_BUCKET}.s3.amazonaws.com/'
 
