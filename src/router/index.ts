@@ -22,6 +22,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "checkout" */ '../views/checkout/index.vue'),
   },
   {
+    path: '/order-success',
+    name: 'Order Successful',
+    component: () => import(/* webpackChunkName: "checkout" */ '../views/ordersuccess/index.vue'),
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '../views/login/index.vue'), // Ensure this matches the actual casing
