@@ -22,7 +22,7 @@
                 <v-img
                   class="align-end text-white"
                   height="200"
-                  src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                  :src="product.product_image_url"
                   cover
                 >
                   <v-card-title class="text-left">{{product.name}}</v-card-title>
