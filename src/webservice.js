@@ -24,8 +24,9 @@ var currentUrl = "http://ec2-16-171-11-75.eu-north-1.compute.amazonaws.com";
 let webService = axios.create({
       headers: {
         "Cache-Control": "no-cache",
-        "Content-Type": "application/x-www-form-urlencoded",
+        // "Content-Type": "application/x-www-form-urlencoded",
         "Access-Control-Allow-Origin": "*",
+        'Content-Type': 'application/json',
       },
     baseURL: currentUrl + '/api',
     withCredentials: true,  
