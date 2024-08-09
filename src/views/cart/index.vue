@@ -12,7 +12,7 @@
                 <v-card outlined>
                   <v-row no-gutters>
                     <v-col cols="4">
-                      <v-img :src="item.image" height="100px" cover></v-img>
+                      <v-img :src="item.product_image_url" height="100px" cover></v-img>
                     </v-col>
                     <v-col cols="8">
                       <v-card-title class="text-left">{{ item.name }}</v-card-title>
