@@ -25,7 +25,10 @@
                   :src="product.product_image_url"
                   cover
                 >
-                  <v-card-title class="text-left">{{product.name}}</v-card-title>
+                  <div class="overlay">
+                    <v-card-title class="text-left">{{ product.name }}</v-card-title>
+                  </div>
+                  <!-- <v-card-title class="text-left">{{product.name}}</v-card-title> -->
                 </v-img>
 
                 <v-card-subtitle class="pt-4 text-left">
