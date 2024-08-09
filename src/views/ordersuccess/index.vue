@@ -10,7 +10,7 @@
           
           <v-card-text>
             <p>Order ID: <strong>{{ orderId }}</strong></p>
-            <p>Total Amount: <strong>${{ totalPrice.toFixed(2) }}</strong></p>
+            <p>Total Amount: <strong>${{ totalPrice }}</strong></p>
           </v-card-text>
 
           <v-divider class="my-4"></v-divider>
@@ -24,34 +24,27 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 export default defineComponent({
   name: 'OrderSuccess',
-  props: {
-    orderId: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-    totalPrice: {
-      type: Number,
-      required: true,
-    },
-  },
-  setup(props) {
+  setup() {
     const router = useRouter();
+    const route = useRoute();
+
+    const orderId = route.query.orderId;
+    const email = route.query.email;
+    const totalPrice = route.query.totalPrice;
 
     const goToHome = () => {
       router.push('/');
     };
 
     return {
+      orderId,
+      email,
+      totalPrice,
       goToHome,
-      ...props,
     };
   },
 });

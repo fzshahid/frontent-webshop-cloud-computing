@@ -183,6 +183,14 @@ export default defineComponent({
           alert('There was an issue with placing your order.')
           console.error(error)
           loading.value = false
+          // router.push({
+          //   path: '/order-success',
+          //   query: {
+          //     orderId: 1,
+          //     email: '1@1.xom',
+          //     totalPrice: 300,
+          //   },
+          // })
         })
     }
 
