@@ -121,6 +121,11 @@ export default defineComponent({
       localStorage.setItem('cart', JSON.stringify(cart.value))
     }
 
+    const emptyCart = () => {
+      cart.value = []
+      localStorage.setItem('cart', JSON.stringify(cart.value))
+    }
+
     const incrementQuantity = (item) => {
       const cartItem = cart.value.find((i) => i.id === item.id)
       if (cartItem) {
@@ -167,6 +172,7 @@ export default defineComponent({
       webService
         .post('/orders', orderData)
         .then((response) => {
+          emptyCart()
           const order = response.data.order
           router.push({
             path: '/order-success',
