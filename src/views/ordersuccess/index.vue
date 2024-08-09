@@ -10,7 +10,7 @@
           
           <v-card-text>
             <p>Order ID: <strong>{{ orderId }}</strong></p>
-            <p>Total Amount: <strong>${{ totalPrice }}</strong></p>
+            <p>Total Amount: <strong>€{{ totalPrice }}</strong></p>
           </v-card-text>
 
           <v-divider class="my-4"></v-divider>

@@ -7,7 +7,7 @@
       <v-col cols="12" md="6">
         <v-card>
           <v-card-title class="text-left">{{ product.name }}</v-card-title>
-          <v-card-subtitle class="text-left">Price: ${{ product.price }}</v-card-subtitle>
+          <v-card-subtitle class="text-left">Price: €{{ product.price }}</v-card-subtitle>
           <v-card-text class="text-left">
             <p>{{ product.description }}</p>
             <p>Stock: {{ product.stock }}</p>

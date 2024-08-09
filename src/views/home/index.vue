@@ -32,7 +32,7 @@
                 </v-img>
 
                 <v-card-subtitle class="pt-4 text-left">
-                  <span class="font-weight-medium">Price: ${{ product.price }}</span>
+                  <span class="font-weight-medium">Price: €{{ product.price }}</span>
                 </v-card-subtitle>
 
                 <v-card-text class="text-left">

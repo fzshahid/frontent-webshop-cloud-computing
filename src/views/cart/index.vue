@@ -17,7 +17,7 @@
                     <v-col cols="8">
                       <v-card-title class="text-left">{{ item.name }}</v-card-title>
                       <v-card-subtitle class="text-left font-weight-bold"
-                        >${{ item.price.toFixed(2) }}</v-card-subtitle
+                        >€{{ item.price.toFixed(2) }}</v-card-subtitle
                       >
                       <v-card-text class="d-flex align-center">
                         <v-btn density="compact" icon @click="decrementQuantity(item)">
@@ -41,7 +41,7 @@
 
             <v-card-text v-if="cart.length" class="d-flex justify-space-between text-h6">
               <span>Total:</span>
-              <span>${{ totalPrice.toFixed(2) }}</span>
+              <span>€{{ totalPrice.toFixed(2) }}</span>
             </v-card-text>
             <v-card-text v-else class="text-center">Your cart is empty.</v-card-text>
           </div>
