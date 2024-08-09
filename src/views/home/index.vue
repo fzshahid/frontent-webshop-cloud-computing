@@ -180,3 +180,12 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped>
+.overlay {
+  background: rgba(0, 0, 0, 0.5); /* semi-transparent black background */
+  padding: 8px;
+}
+.text-white {
+  color: white !important;
+}
+</style>

@@ -1,0 +1,18 @@
+
+.overlay[data-v-4fd19d78] {
+  background: rgba(0, 0, 0, 0.5); /* semi-transparent black background */
+  padding: 8px;
+}
+.text-white[data-v-4fd19d78] {
+  color: white !important;
+}
+
+
+.v-card-title[data-v-3d269606] {
+  font-size: 1.5rem;
+}
+.v-card-subtitle[data-v-3d269606] {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
